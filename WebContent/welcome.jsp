@@ -8,11 +8,14 @@
 <title>welcome</title>
 
 <script src="<%=request.getContextPath()%>/js/gobang.js"></script>
-
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/checkerboard.css"/>
 
 </head>
 <body>
-	<canvas id="chess" width="1300" height="800"></canvas>
-	<script>draw()</script>
+	<div id="CheckerBoard">
+		<canvas id="chess" width="700" height="680" ></canvas>
+		
+		<script>drawCheckerBoard()</script>
+	</div>
 </body>
 </html>
