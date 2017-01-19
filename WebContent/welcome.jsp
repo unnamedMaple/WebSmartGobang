@@ -12,10 +12,13 @@
 
 </head>
 <body>
-	<div id="CheckerBoard">
+	<div id="CheckerBoard" onclick="click(event)">
 		<canvas id="chess" width="700" height="680" ></canvas>
 		
-		<script>drawCheckerBoard()</script>
+		<script>
+		drawCheckerBoard();
+		initchessArray();
+		</script>
 	</div>
 </body>
 </html>

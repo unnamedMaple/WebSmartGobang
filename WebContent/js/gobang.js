@@ -1,5 +1,5 @@
 
-var grid = 35;
+var grid = 36;
  
 var h = 60;
 
@@ -11,6 +11,19 @@ var Ident = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O'];
 var x = [];
 var y = [];
 
+
+var who = 1;
+//记录棋盘状态,1表示黑子,0表示无子,-1表示白子
+var chessArray = [];
+function initchessArray(){
+	for(var i =0;i<15;i++){
+		chessArray[i] = new Array();
+		for(var j=0;j<15;j++){
+			chessArray[i][j] = 0;
+		}	
+	}
+		
+}
 
 function drawCheckerBoard() {
 	var c = document.getElementById("chess");
@@ -82,7 +95,77 @@ function drawCheckerBoard() {
 	
 }
 	
+
+function getCanvasPos(canvas,e)  
+{//获取鼠标在canvas上的坐标  
+    var rect = canvas.getBoundingClientRect();   
+    return {   
+     x: e.clientX - rect.left * (canvas.width / rect.width),  
+     y: e.clientY - rect.top * (canvas.height / rect.height)  
+   };  
+}  
+
+function click(e){
+	var c=document.getElementById("chess");
+	var canvasX = getCanvasPos(c,e).x;
+	var canvasY = getCanvasPos(c,e).y;
+	if(canvasX<margin || canvasX>margin+14*grid || canvasY<h || canvasY>h+14*grid){
+		return;
+	}
+	var intX;
+	var intY;
+	if(canvasX - margin - grid/2 < 0){
+		intX = 0;
+	}
+	else{
+		intX = parseInt((canvasX - margin - grid/2) / 36 + 1);
+	}
 	
+	if(canvasY - h - grid/2 < 0){
+		intY = 0;
+	}
+	else{
+		intY = parseInt((canvasY - h - grid/2) / 36 + 1);
+	}
+	
+	drawChess(intX,intY);
+	return;
+}
+
+
+function drawChess(x,y){
+	var c = document.getElementById("chess");
+	var cxt = c.getContext('2d');
+	var R = 15;
+	if(chessArray[x][y] != 0){
+		alert("have chess!");
+		return;
+	}
+	
+	if (who == 1){
+		cxt.beginPath();
+		cxt.arc(margin+x*grid,h+y*grid,R,0,2*Math.PI);
+		cxt.fillStyle="black";//画一个黑子
+		cxt.fill();//画实心圆
+		cxt.closePath();
+		chessArray[x][y] = 1;
+		who = -1;
+		
+	}
+	else{
+		cxt.beginPath();
+		cxt.arc(margin+x*grid,h+y*grid,R,0,2*Math.PI);
+		cxt.fillStyle="white";//画一个黑子
+		cxt.fill();//画实心圆
+		cxt.closePath();
+		chessArray[x][y] = -1;
+		who = 1;
+	}
+	return ;
+		
+		
+}
+
 function Point() {
 	this.x = x;
 	this.y = y;
