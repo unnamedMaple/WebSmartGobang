@@ -14,7 +14,7 @@
 <body>
 	<div id="CheckerBoard" onclick="click(event)">
 		<canvas id="chess" width="700" height="680" ></canvas>
-		
+		<button onclick="restart()">重新开始</button>
 		<script>
 		drawCheckerBoard();
 		initchessArray();

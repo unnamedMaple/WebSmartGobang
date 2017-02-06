@@ -12,9 +12,9 @@ var x = [];
 var y = [];
 
 
-var who = 1;
-//记录棋盘状态,1表示黑子,0表示无子,-1表示白子
-var chessArray = [];
+var who = 1;//当前执棋者，1为黑，-1为白
+
+var chessArray = [];//记录棋盘状态,1表示黑子,0表示无子,-1表示白子
 function initchessArray(){
 	for(var i =0;i<15;i++){
 		chessArray[i] = new Array();
@@ -129,6 +129,8 @@ function click(e){
 	}
 	
 	drawChess(intX,intY);
+	judge(intX,intY);
+	
 	return;
 }
 
@@ -164,6 +166,118 @@ function drawChess(x,y){
 	return ;
 		
 		
+}
+
+function restart(){
+	window.location.reload(); 
+}
+
+function judge(x,y){
+	var whochess = -who;
+	var judgeX = 4;
+	var judgeY = 4;
+	var win = true;
+	var i;
+	while(judgeX>=0){
+		
+		//判断X方向
+		if (x - judgeX >= 0 && chessArray[x - judgeX][y] == whochess){
+			win = true;
+			for(i =1;i<5;i++){
+				if(x - judgeX+i >15 || chessArray[x - judgeX+i][y] != whochess){
+					win = false;
+					break;
+				}
+			}
+			if (win == true){
+				if (whochess == 1){
+					alert("The black won!");
+					restart();
+				}
+				else{
+					alert("The white won!");
+					restart();
+				}
+				return;
+			}	
+		}
+		
+		
+		//判断X,Y方向
+		if (x - judgeX >= 0 && y - judgeY >= 0 && chessArray[x - judgeX][y - judgeY] == whochess){
+			win = true;
+			for(i =1;i<5;i++){
+				if(x - judgeX+i >15 || y - judgeY+i > 15 || chessArray[x - judgeX+i][y - judgeY+i] != whochess){
+					win = false;
+					break;
+				}
+			}
+			if (win == true){
+				if (whochess == 1){
+					alert("The black won!");
+					restart();
+				}
+				else{
+					alert("The white won!");
+					restart();
+				}
+				return;
+			}	
+		}
+		
+		
+		//判断Y方向
+		if (y - judgeY >= 0 && chessArray[x][y - judgeY] == whochess){
+			win = true;
+			for(i =1;i<5;i++){
+				if(y - judgeY+i>15 || chessArray[x][y - judgeY+i] != whochess){
+					win = false;
+					break;
+				}
+			}
+			if (win == true){
+				if (whochess == 1){
+					alert("The black won!");
+					restart();
+				}
+				else{
+					alert("The white won!");
+					restart();
+				}
+				return;
+			}	
+		}
+		
+		
+		//判断-X,Y方向
+		if (x + judgeX <= 15 && y - judgeY >= 0 && chessArray[x + judgeX][y - judgeY] == whochess){
+			win = true;
+			for(i =1;i<5;i++){
+				if(x + judgeX-i < 0 || y - judgeY+i > 15 ||chessArray[x + judgeX -i][y - judgeY+i] != whochess){
+					win = false;
+					break;
+				}
+			}
+			if (win == true){
+				if (whochess == 1){
+					alert("The black won!");
+					restart();
+				}
+				else{
+					alert("The white won!");
+					restart();
+				}
+				return;
+			}	
+		}
+		
+		judgeX--;
+		judgeY--;
+		
+	}
+	
+	
+	
 }
 
 function Point() {
